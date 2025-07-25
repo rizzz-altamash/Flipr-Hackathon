@@ -90,39 +90,61 @@ const MobileAlertCard = ({ type, title, message, count, color }) => (
   </motion.div>
 );
 
-const MobileActivityCard = ({ activity }) => (
-  <motion.div
-    whileTap={{ scale: 0.98 }}
-    className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100 hover:shadow-sm transition-shadow"
-  >
-    <div className="flex items-center flex-1 min-w-0">
-      <div className={`w-2 h-2 rounded-full mr-3 flex-shrink-0 ${
-        activity.action === 'Stock In' ? 'bg-green-500' :
-        activity.action === 'Stock Out' ? 'bg-red-500' :
-        activity.action === 'New Product' ? 'bg-blue-500' :
-        'bg-yellow-500'
-      }`}></div>
-      <div className="min-w-0 flex-1">
-        <p className="font-medium text-gray-900 text-sm truncate">
-          {activity.action}
+const MobileActivityCard = ({ activity }) => {
+  const type = activity.type;
+  const action =
+    type === 'in'
+      ? 'Stock In'
+      : type === 'out'
+      ? 'Stock Out'
+      : type === 'transfer'
+      ? 'Transfer'
+      : type === 'adjustment'
+      ? 'Adjustment'
+      : 'Activity';
+  const product = activity.productId?.name || 'Unknown Product';
+  const quantity = activity.quantity;
+  const time = new Date(activity.timestamp).toLocaleString('en-IN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    day: '2-digit',
+    month: 'short',
+  });
+  
+  return(
+    <motion.div
+      whileTap={{ scale: 0.98 }}
+      className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100 hover:shadow-sm transition-shadow"
+    >
+      <div className="flex items-center flex-1 min-w-0">
+        <div className={`w-2 h-2 rounded-full mr-3 flex-shrink-0 ${
+          type === 'in' ? 'bg-green-500' :
+          type === 'out' ? 'bg-red-500' :
+          type === 'transfer' ? 'bg-yellow-500' :
+          'bg-blue-500'
+        }`}></div>
+        <div className="min-w-0 flex-1">
+          <p className="font-medium text-gray-900 text-sm truncate">
+            {action}
+          </p>
+          <p className="text-xs text-gray-600 truncate">
+            {product}
+          </p>
+        </div>
+      </div>
+      <div className="text-right flex-shrink-0 ml-2">
+        <p className={`font-medium text-sm ${
+          quantity > 0 ? 'text-green-600' : 'text-red-600'
+        }`}>
+          {quantity > 0 ? '+' : ''}{quantity}
         </p>
-        <p className="text-xs text-gray-600 truncate">
-          {activity.product}
+        <p className="text-xs text-gray-500">
+          {time}
         </p>
       </div>
-    </div>
-    <div className="text-right flex-shrink-0 ml-2">
-      <p className={`font-medium text-sm ${
-        activity.quantity > 0 ? 'text-green-600' : 'text-red-600'
-      }`}>
-        {activity.quantity > 0 ? '+' : ''}{activity.quantity}
-      </p>
-      <p className="text-xs text-gray-500">
-        {activity.time}
-      </p>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  )
+};
 
 export default function Dashboard() {
   const { session, status } = useAuth(['view_inventory']);
