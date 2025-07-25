@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       >
         <AuthSessionProvider>
           {children}
-          <Toaster position="top-right" />
+          <Toaster position="top-center" />
         </AuthSessionProvider>
       </body>
     </html>

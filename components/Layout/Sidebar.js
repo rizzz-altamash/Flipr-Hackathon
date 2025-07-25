@@ -11,6 +11,7 @@ import {
   BellIcon,
   UsersIcon,
   CogIcon,
+  ClockIcon,
   DocumentArrowDownIcon,
   BuildingStorefrontIcon,
   ArchiveBoxIcon
@@ -38,6 +39,13 @@ const navigation = [
     icon: ArchiveBoxIcon, 
     permission: 'view_inventory',
     description: 'Stock Management'
+  },
+  { 
+    name: 'Recent Activities', 
+    href: '/activities', 
+    icon: ClockIcon, 
+    permission: 'view_inventory',
+    description: 'View All Activities'
   },
   { 
     name: 'Categories', 
