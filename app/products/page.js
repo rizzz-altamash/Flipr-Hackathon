@@ -16,6 +16,7 @@ import {
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import ProductDetailModal from '../../components/ProductDetailModal';
 import { formatCurrency, formatDisplayCurrency, cn } from '../../lib/utils';
 import { toast } from 'react-hot-toast';
 
@@ -395,6 +396,8 @@ export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [productToView, setProductToView] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -465,8 +468,20 @@ export default function ProductsPage() {
   };
 
   const handleViewProduct = (product) => {
-    // Implement product detail view
     console.log('View product:', product);
+    setProductToView(product);
+    setIsDetailModalOpen(true);
+  };
+
+  const handleCloseDetailModal = () => {
+    setIsDetailModalOpen(false);
+    setProductToView(null);
+  };
+  
+  const handleEditFromDetail = (product) => {
+    setIsDetailModalOpen(false);
+    setSelectedProduct(product);
+    setIsModalOpen(true);
   };
 
   if (loading) {
@@ -601,6 +616,16 @@ export default function ProductsPage() {
             onClose={() => setIsModalOpen(false)}
             onSave={fetchProducts}
             categories={categories}
+          />
+        </AnimatePresence>
+
+        {/* Product Detail Modal */}
+        <AnimatePresence>
+          <ProductDetailModal
+            product={productToView}
+            isOpen={isDetailModalOpen}
+            onClose={handleCloseDetailModal}
+            onEdit={handleEditFromDetail}
           />
         </AnimatePresence>
       </div>
