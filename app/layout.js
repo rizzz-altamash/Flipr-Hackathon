@@ -1,6 +1,3 @@
-// 'use client';
-
-import { Inter } from 'next/font/google';
 import AuthSessionProvider from '@/components/auth/SessionProvider';
 import { Toaster } from 'react-hot-toast';
 import { Geist, Geist_Mono } from "next/font/google";

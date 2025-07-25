@@ -251,7 +251,7 @@ export default function SignUp() {
           className="mt-8 text-center"
         >
           <p className="text-white/70 text-sm">
-            © 2024 Premium Inventory. All rights reserved.
+            © 2025 Premium Inventory. All rights reserved.
           </p>
         </motion.div>
       </motion.div>

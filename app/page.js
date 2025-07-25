@@ -258,7 +258,7 @@ export default function Home() {
               <span className="ml-3 text-xl font-bold text-white">Premium Inventory</span>
             </div>
             <p className="text-white/60">
-              © 2024 Premium Inventory. All rights reserved.
+              © 2025 Premium Inventory. All rights reserved.
             </p>
           </div>
         </div>

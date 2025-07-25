@@ -325,7 +325,7 @@ npm run build
 ### **Get Help**
 - 📧 **Email**: rizzzaltamash@gmail.com
 - 💬 **Discord**: [Join our community](https://discord.gg/premium-inventory)
-- 📖 **LinkedIn**: [Connect](https://docs.premium-inventory.com)
+- 📖 **LinkedIn**: [Connect](https://www.linkedin.com/in/md-altamash-rizwi-1865b2322?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 - 🐛 **Issues**: [GitHub Issues](https://github.com/yourusername/premium-inventory/issues)
 
 ---
