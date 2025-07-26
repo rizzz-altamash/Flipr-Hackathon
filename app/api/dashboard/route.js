@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]/route';
 import dbConnect from '../../../lib/mongodb';
 import Product from '../../../models/Product';
+import Category from '../../../models/Category';
 import InventoryMovement from '../../../models/InventoryMovement';
 
 export async function GET(request) {
