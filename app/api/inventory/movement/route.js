@@ -4,7 +4,7 @@ import { authOptions } from '../../auth/[...nextauth]/route';
 import dbConnect from '../../../../lib/mongodb';
 import Product from '../../../../models/Product';
 import InventoryMovement from '../../../../models/InventoryMovement';
-import checkStockLevels from '../../../../lib/stockAlerter';
+// import checkStockLevels from '../../../../lib/stockAlerter';
 
 export async function POST(request) {
   try {
