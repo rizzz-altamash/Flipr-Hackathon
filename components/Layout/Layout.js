@@ -201,32 +201,6 @@ export default function Layout({ children }) {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              className={cn(
-                                'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                              )}
-                            >
-                              Profile Settings
-                            </button>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              className={cn(
-                                'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                              )}
-                            >
-                              Preferences
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </div>
-                      <div className="px-1 py-1">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
                               onClick={() => signOut()}
                               className={cn(
                                 'group flex w-full items-center rounded-md px-2 py-2 text-sm text-red-600',

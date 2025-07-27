@@ -380,13 +380,6 @@ export default function Dashboard() {
           <div className="flex space-x-2 lg:space-x-3">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              className="flex-1 lg:flex-none bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center"
-            >
-              <BellIcon className="h-4 w-4 mr-2" />
-              <span className="hidden sm:inline">Alerts</span>
-            </motion.button>
-            <motion.button
-              whileTap={{ scale: 0.95 }}
               onClick={handleExportReport}
               disabled={exportLoading}
               className="flex-1 lg:flex-none bg-white border border-gray-300 text-gray-700 hover:bg-gradient-to-r from-blue-600 to-purple-600 hover:text-white px-4 py-2 rounded-lg font-medium text-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
@@ -496,8 +489,8 @@ export default function Dashboard() {
             </div>
             
             <div className="space-y-2">
-              {dashboardData.recentActivity.slice(0, 4).map((activity) => (
-                <MobileActivityCard key={activity.id} activity={activity} />
+              {dashboardData.recentActivity.slice(0, 4).map((activity, index) => (
+                <MobileActivityCard key={activity._id || activity.id || index} activity={activity} />
               ))}
             </div>
           </div>
@@ -523,7 +516,7 @@ export default function Dashboard() {
             <div className="space-y-2">
               {dashboardData.topProducts.map((product, index) => (
                 <motion.div
-                  key={product.name}
+                  key={`top-product-${index}`}
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
