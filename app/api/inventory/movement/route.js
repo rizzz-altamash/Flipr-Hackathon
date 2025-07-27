@@ -4,6 +4,7 @@ import { authOptions } from '../../auth/[...nextauth]/route';
 import dbConnect from '../../../../lib/mongodb';
 import Product from '../../../../models/Product';
 import InventoryMovement from '../../../../models/InventoryMovement';
+import checkStockLevels from '../../../../lib/stockAlerter';
 
 export async function POST(request) {
   try {
@@ -83,13 +84,24 @@ export async function POST(request) {
 
     await movement.save();
 
-    // Update product stock
-    await Product.findByIdAndUpdate(productId, {
+    // Prepare update object for product
+    const updateData = {
       currentStock: newStock,
       updatedBy: session.user.id,
-      updatedAt: new Date(),
-      ...(type === 'in' && { lastRestocked: new Date() })
-    });
+      updatedAt: new Date()
+    };
+
+    // Add specific updates based on movement type
+    if (type === 'in') {
+      updateData.lastRestocked = new Date();
+    } else if (type === 'out') {
+      // Update totalSold and lastSold for outbound movements (sales)
+      updateData.totalSold = (product.totalSold || 0) + parseInt(quantity);
+      updateData.lastSold = new Date();
+    }
+
+    // Update product with all the changes
+    await Product.findByIdAndUpdate(productId, updateData);
 
     // Populate the movement for response
     await movement.populate([
@@ -97,13 +109,17 @@ export async function POST(request) {
       { path: 'userId', select: 'name' }
     ]);
 
+    // Check stock levels and send alerts if necessary
+    await checkStockLevels();
+
     return NextResponse.json({
       message: 'Stock updated successfully',
       movement,
-      newStock
+      newStock,
+      totalSold: updateData.totalSold // Include totalSold in response
     });
   } catch (error) {
-    console.error('Error updating stock:', error);
+    console.error('Error in POST /api/inventory/movement:', error);
     return NextResponse.json(
       { message: 'Internal server error' },
       { status: 500 }
